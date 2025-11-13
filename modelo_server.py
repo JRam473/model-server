@@ -8,13 +8,16 @@ import threading
 from flask import Flask, request, jsonify
 import numpy as np
 
+# ✅ CORREGIDO: Crear directorio logs antes de configurar logging
+os.makedirs('logs', exist_ok=True)
+
 # Configurar logging para Render
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
         logging.StreamHandler(sys.stdout),
-        logging.FileHandler('logs/model_server.log')
+        logging.FileHandler('logs/model_server.log', encoding='utf-8')  # ✅ Agregar encoding
     ]
 )
 logger = logging.getLogger("MODEL_SERVER_RENDER")

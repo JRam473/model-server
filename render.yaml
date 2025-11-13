@@ -1,12 +1,10 @@
 services:
   - type: web
-    name: model-server-tahitic
+    name: modelo-server
     env: python
     plan: free
-    branch: main
     buildCommand: pip install -r requirements.txt
     startCommand: python modelo_server.py
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.9.0
-    healthCheckPath: /health
+      - key: PORT
+        value: 10000
