@@ -233,7 +233,7 @@ modelos_thread = threading.Thread(target=inicializar_modelos, daemon=True)
 modelos_thread.start()
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 10000))
+    port = int(os.environ.get('PORT', 50000))
     
     print("=" * 60)
     print("🚀 INICIANDO SERVIDOR DE MODELOS EN RENDER")
