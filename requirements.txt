@@ -1,18 +1,23 @@
-# Modelos de ML
-ultralytics>=8.0.0
-transformers>=4.30.0
-torch>=2.0.0
-torchvision>=0.15.0
+# ✅ VERSIONES OPTIMIZADAS PARA PRODUCCIÓN
+
+# Modelos de ML - VERSIONES ESPECÍFICAS PARA ESTABILIDAD
+ultralytics==8.0.186  # ✅ VERSIÓN ESTABLE
+transformers==4.35.2  # ✅ VERSIÓN MÁS NUEVA Y OPTIMIZADA
+torch==2.1.0          # ✅ VERSIÓN ESTABLE CON CPU
+torchvision==0.16.0
 
 # Procesamiento de imágenes
-Pillow>=10.0.0
-numpy>=1.24.0
-opencv-python-headless>=4.7.0
+Pillow==10.0.1        # ✅ ACTUALIZADO
+numpy==1.24.3
+opencv-python-headless==4.8.1.78  # ✅ ACTUALIZADO
 
 # Servidor web
-Flask>=2.3.0
-gunicorn>=21.0.0
-Werkzeug>=2.3.0
+Flask==2.3.3
+gunicorn==21.2.0
+Werkzeug==2.3.7
 
 # Utilidades
-requests>=2.28.0
+requests==2.31.0
+
+# ✅ DEPENDENCIAS ADICIONALES PARA OPTIMIZACIÓN
+psutil==5.9.5         # ✅ MONITOREO DE MEMORIA
