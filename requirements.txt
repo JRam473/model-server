@@ -1,25 +1,23 @@
-# === MODELOS COMPATIBLES CON PYTHON 3.12 ===
+# ✅ VERSIONES OPTIMIZADAS PARA PRODUCCIÓN
 
-# Ultralytics más reciente compatible (sí funciona en 3.12)
-ultralytics==8.3.34
-
-# Transformers compatible con torch 2.5+
-transformers==4.40.2
-
-# Torch para Python 3.12 (última versión disponible)
-torch==2.5.1
-torchvision==0.20.1
+# Modelos de ML - VERSIONES ESPECÍFICAS PARA ESTABILIDAD
+ultralytics==8.0.186  # ✅ VERSIÓN ESTABLE
+transformers==4.35.2  # ✅ VERSIÓN MÁS NUEVA Y OPTIMIZADA
+torch==2.1.0          # ✅ VERSIÓN ESTABLE CON CPU
+torchvision==0.16.0
 
 # Procesamiento de imágenes
-Pillow==10.4.0
-numpy==1.26.4
-opencv-python-headless==4.10.0.84
+Pillow==10.0.1        # ✅ ACTUALIZADO
+numpy==1.24.3
+opencv-python-headless==4.8.1.78  # ✅ ACTUALIZADO
 
 # Servidor web
-Flask==3.0.3
-gunicorn==22.0.0
-Werkzeug==3.0.3
+Flask==2.3.3
+gunicorn==21.2.0
+Werkzeug==2.3.7
 
 # Utilidades
-requests==2.32.3
-psutil==6.0.0
+requests==2.31.0
+
+# ✅ DEPENDENCIAS ADICIONALES PARA OPTIMIZACIÓN
+psutil==5.9.5         # ✅ MONITOREO DE MEMORIA
