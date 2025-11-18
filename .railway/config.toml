@@ -1,0 +1,13 @@
+[build]
+builder = "nixpacks"
+
+[build.args]
+# ✅ ARGUMENTOS PARA REDUCIR TAMAÑO
+PYTHON_VERSION = "3.11"
+PIP_CACHE_DIR = "/tmp/pip-cache"
+
+[deploy]
+startCommand = "python modelo_server.py"
+
+[service]
+minReplicas = 1

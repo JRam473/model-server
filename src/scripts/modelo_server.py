@@ -66,48 +66,37 @@ def inicializar_modelos():
         return
         
     inicializacion_en_curso = True
-    logger.info("🔄 INICIANDO CARGA DE MODELOS EN RENDER...")
+    logger.info("🔄 INICIANDO CARGA OPTIMIZADA DE MODELOS...")
     
     try:
         # Agregar el directorio actual al path
         script_dir = os.path.dirname(os.path.abspath(__file__))
         sys.path.append(script_dir)
         
-        # Intentar importar en orden de preferencia
-        analizador = None
-        
-        for script_name in ['analisis_imagen', 'analisis_imagen_completo']:
+        # ✅ IMPORTAR DIRECTAMENTE LA VERSIÓN OPTIMIZADA
+        try:
+            from analisis_imagen import ImageAnalyzerOptimizado
+            logger.info("✅ ImageAnalyzerOptimizado importado correctamente")
+            analizador = ImageAnalyzerOptimizado()
+        except ImportError as e:
+            logger.error(f"❌ Error importando versión optimizada: {e}")
+            # Fallback a versión legacy
             try:
-                logger.info(f"📁 Intentando importar desde {script_name}.py...")
-                module = __import__(script_name)
-                if hasattr(module, 'ImageAnalyzer'):
-                    analizador = module.ImageAnalyzer()
-                    logger.info(f"✅ {script_name}.py importado correctamente")
-                    break
-            except ImportError as e:
-                logger.warning(f"❌ Error importando {script_name}.py: {e}")
-                continue
+                from analisis_imagen import ImageAnalyzer
+                logger.info("✅ Usando ImageAnalyzer legacy")
+                analizador = ImageAnalyzer()
+            except ImportError:
+                logger.error("❌ No se pudo importar ningún analizador")
+                inicializacion_en_curso = False
+                return
         
-        if analizador is None:
-            logger.error("💥 No se pudo importar ningún analizador")
-            return
+        logger.info("📦 Cargando modelos optimizados...")
+        analizador.load_models()
         
-        logger.info("📦 Cargando modelos (esto puede tomar 1-2 minutos en Render)...")
-        
-        # Método de carga específico
-        if hasattr(analizador, 'load_models'):
-            analizador.load_models()
-            modelos_listos = getattr(analizador, 'cargado', False)
-        elif hasattr(analizador, 'load_model'):
-            analizador.load_model()
-            modelos_listos = True
-        else:
-            # Asumir que los modelos se cargan en el constructor
-            modelos_listos = True
+        modelos_listos = analizador.cargado
         
         if modelos_listos:
-            logger.info("🎉 TODOS LOS MODELOS CARGADOS CORRECTAMENTE!")
-            logger.info("🚀 Servidor listo para recibir peticiones")
+            logger.info("🎉 MODELOS CARGADOS CORRECTAMENTE!")
         else:
             logger.error("💥 ERROR: No se pudieron cargar los modelos")
             
@@ -115,8 +104,6 @@ def inicializar_modelos():
         
     except Exception as e:
         logger.error(f"💥 ERROR CRÍTICO en inicialización: {e}")
-        import traceback
-        logger.error(f"Traceback: {traceback.format_exc()}")
         modelos_listos = False
         inicializacion_en_curso = False
 
@@ -233,7 +220,7 @@ modelos_thread = threading.Thread(target=inicializar_modelos, daemon=True)
 modelos_thread.start()
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 50000))
+    port = int(os.environ.get('PORT', 5000))
     
     print("=" * 60)
     print("🚀 INICIANDO SERVIDOR DE MODELOS EN RENDER")
